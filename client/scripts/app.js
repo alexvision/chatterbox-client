@@ -96,11 +96,12 @@ App.prototype.addFriend = function(friend) {
 App.prototype.handleSubmit = function() {
   var username = window.location.search.substring(10);
   var newMessage = $("#newMessage").val();
+  debugger;
   var room = $("#newRoom").val();
   var message = {
     username: username,
     text: newMessage,
-    room: room
+    roomname: room
   }
   app.send(message);
 };
