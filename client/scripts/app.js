@@ -2,14 +2,10 @@ var App = function(){
   this.currentMessages = {};
   this.currentRooms = {};
   this.currentRoom = "All";
+  this.friends = [];
 };
 
 App.prototype.init = function(){ 
-    //delegates the click handler to our .username divs
-  $('#chats').delegate('.username','click',function(){
-    app.addFriend();
-  });
-
   
   app.fetch('https://api.parse.com/1/classes/chatterbox');
   setInterval(function(){
@@ -87,8 +83,14 @@ App.prototype.addRoom = function(roomname) {
   }
 };
 
-App.prototype.addFriend = function() {
-  
+App.prototype.addFriend = function(friend) {
+  app.friends.push(friend[0].innerText);
+  debugger;
+  $('.username').each(function(ind,val){
+    if(val.innerText === friend[0].innerText){
+      $(this).toggleClass(".friends");
+    }
+  });
 };
 
 App.prototype.handleSubmit = function() {
@@ -131,6 +133,11 @@ app.init();
 $(document).ready(function(){
   $('#send').delegate('.submit','click', function(){
     app.handleSubmit();
+  });
+  
+  //delegates the click handler to our .username divs
+  $('#chats').delegate('.username','click',function(){
+    app.addFriend($(this));
   });
 
   $("#roomSelect").change(function(){
