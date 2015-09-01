@@ -2,7 +2,7 @@ var App = function(){
   this.currentMessages = {};
   this.currentRooms = {};
   this.currentRoom = "All";
-  this.friends = [];
+  this.friends = {};
 };
 
 App.prototype.init = function(){ 
@@ -62,6 +62,9 @@ App.prototype.addMessage = function(message, reload) {
       var newMessage = $("<div class='chat'></div>");
       newMessage.append("<div class='username'>"+escaper(message.username)+"</div>")
       newMessage.append("<div id='message'>"+escaper(message.text)+"</div>");
+      if(app.friends[message.username] !== undefined){
+        $(newMessage).children('#message').css("font-weight","800");
+      }
       newMessage.append("<div id='room'>"+escaper(message.roomname)+"</div>");
       escaper(message.text);
       $('#chats').prepend(newMessage);
@@ -84,11 +87,10 @@ App.prototype.addRoom = function(roomname) {
 };
 
 App.prototype.addFriend = function(friend) {
-  app.friends.push(friend[0].innerText);
-  debugger;
-  $('.username').each(function(ind,val){
-    if(val.innerText === friend[0].innerText){
-      $(this).toggleClass(".friends");
+  app.friends[friend[0].innerText]=friend;
+  $('.chat').each(function(ind,val){
+    if($(val).children('.username')[0].innerText === friend[0].innerText){
+      $(val).children('#message').css("font-weight","800");
     }
   });
 };
@@ -96,7 +98,6 @@ App.prototype.addFriend = function(friend) {
 App.prototype.handleSubmit = function() {
   var username = window.location.search.substring(10);
   var newMessage = $("#newMessage").val();
-  debugger;
   var room = $("#newRoom").val();
   var message = {
     username: username,
