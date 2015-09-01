@@ -15,10 +15,14 @@
   <body>
     <div id="main" >
       <h1>chatterbox</h1>
-        <form id="send">
-          <input type="text" id="newMessage">
-          <input type="submit" class="submit" value="Submit">      
-        </form>  
+      <select id="roomSelect">
+        <option id="all">All</option>
+      </select>
+      <div id="send">
+        <input type="text" id="newMessage" placeholder="Messsage">
+        <input type="text" id="newRoom" placeholder="Room">
+        <button class="submit">Submit</button>      
+      </div>  
     </div>
     <div id="chats"></div>
   </body>
