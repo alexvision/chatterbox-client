@@ -65,7 +65,7 @@ App.prototype.addMessage = function(message, reload) {
       if(app.friends[message.username] !== undefined){
         $(newMessage).children('#message').css("font-weight","800");
       }
-      newMessage.append("<div id='room'>"+escaper(message.roomname)+"</div>");
+      //newMessage.append("<div id='room'>"+escaper(message.roomname)+"</div>");
       escaper(message.text);
       $('#chats').prepend(newMessage);
     }
